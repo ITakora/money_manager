@@ -21,7 +21,7 @@ class IncomeExpenseCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Income",
+                      "Pendapatan",
                       style: GoogleFonts.poppins(),
                     ),
                     SizedBox(
@@ -29,7 +29,8 @@ class IncomeExpenseCard extends StatelessWidget {
                     ),
                     Text(
                       "Rp.300.000",
-                      style: GoogleFonts.poppins(fontSize: 17),
+                      style: GoogleFonts.poppins(
+                          fontSize: 17, fontWeight: FontWeight.w500),
                     )
                   ],
                 ),
@@ -47,7 +48,7 @@ class IncomeExpenseCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Expense",
+                    "Pengeluaran",
                     style: GoogleFonts.poppins(),
                   ),
                   SizedBox(
@@ -55,7 +56,8 @@ class IncomeExpenseCard extends StatelessWidget {
                   ),
                   Text(
                     "Rp.300.000",
-                    style: GoogleFonts.poppins(fontSize: 17),
+                    style: GoogleFonts.poppins(
+                        fontSize: 17, fontWeight: FontWeight.w500),
                   )
                 ],
               ),
