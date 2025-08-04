@@ -8,25 +8,25 @@ class ChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: AspectRatio(
-        aspectRatio: 1.3,
+      child: Container(
+        height: 190,
         child: PieChart(PieChartData(sections: [
           PieChartSectionData(
               value: 30,
-              color: Colors.cyan,
+              color: Colors.green,
               title: "Food",
               titleStyle: GoogleFonts.poppins(
-                  fontSize: 14, fontWeight: FontWeight.w600)),
+                  fontSize: 12, fontWeight: FontWeight.w600)),
           PieChartSectionData(
               value: 20,
-              color: Colors.green,
+              color: Colors.cyan,
               titleStyle: GoogleFonts.poppins(
-                  fontSize: 14, fontWeight: FontWeight.w600)),
+                  fontSize: 12, fontWeight: FontWeight.w600)),
           PieChartSectionData(
               value: 50,
               color: Colors.grey,
               titleStyle: GoogleFonts.poppins(
-                  fontSize: 14, fontWeight: FontWeight.w600))
+                  fontSize: 12, fontWeight: FontWeight.w600))
         ])),
       ),
     );

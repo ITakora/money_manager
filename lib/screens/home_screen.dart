@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:money_manager/screens/money_field_screen.dart';
 import 'package:money_manager/widgets/expense_card.dart';
 import 'package:money_manager/widgets/income_expense_card.dart';
 
@@ -9,6 +10,21 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 15),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => MoneyFieldScreen(),
+            ));
+          },
+          backgroundColor: Color(0xFFFEFEFE),
+          child: Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
+        ),
+      ),
       backgroundColor: Color(0xFFF9F8FA),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

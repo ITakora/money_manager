@@ -9,15 +9,34 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: 30),
+        padding: const EdgeInsets.only(top: 40, left: 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ChartWidget(),
-            Column(
-              children: [IndicatorWidget()],
-            )
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20, left: 42),
+                child: Column(
+                  children: [
+                    IndicatorWidget(
+                      title: "Food 50%",
+                      color: Colors.green,
+                    ),
+                    SizedBox(height: 10),
+                    IndicatorWidget(
+                      title: "Transport 50%",
+                      color: Colors.grey,
+                    ),
+                    SizedBox(height: 10),
+                    IndicatorWidget(
+                      title: "Parts 50%",
+                      color: Colors.cyan,
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
