@@ -11,6 +11,9 @@ class BottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Money Manager',
+        theme: ThemeData(
+          useMaterial3: true,
+        ),
         home: PersistentTabView(
           tabs: [
             PersistentTabConfig(
