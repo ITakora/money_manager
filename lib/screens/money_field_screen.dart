@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money_manager/screens/Expense_field_screen.dart';
+import 'package:money_manager/screens/income_field_screen.dart';
 
 class MoneyFieldScreen extends StatelessWidget {
   const MoneyFieldScreen({super.key});
@@ -9,27 +11,23 @@ class MoneyFieldScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
           appBar: AppBar(
+            bottom: TabBar(tabs: [
+              Tab(
+                child: Text("Expense"),
+              ),
+              Tab(
+                child: Text("Income"),
+              )
+            ]),
             centerTitle: true,
             title: Text(
-              "Pengeluaran",
+              "Sigma",
             ),
             elevation: 5,
             backgroundColor: Color(0xFFFEFEFE),
           ),
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 15),
-            child: FloatingActionButton(
-              onPressed: () {},
-              backgroundColor: Color(0xFFFEFEFE),
-              child: Icon(
-                Icons.done,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          body: Column(
-            children: [],
-          )),
+          body: TabBarView(
+              children: [ExpenseFieldScreen(), IncomeFieldScreen()])),
     );
   }
 }

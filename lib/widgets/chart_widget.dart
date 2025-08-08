@@ -8,7 +8,7 @@ class ChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
+      child: SizedBox(
         height: 190,
         child: PieChart(PieChartData(sections: [
           PieChartSectionData(
