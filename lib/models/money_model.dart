@@ -8,7 +8,14 @@ class Money {
   String category;
   String time;
   String money;
+  String Deskripsi;
 
-  Money(String? id, this.title, this.category, this.time, this.money)
-      : id = id ?? uuid.v4();
+  Money({
+    required this.title,
+    required this.category,
+    required this.time,
+    required this.money,
+    required this.Deskripsi,
+    String? id,
+  }) : id = id ?? uuid.v4();
 }

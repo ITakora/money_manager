@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:money_manager/screens/money_field_screen.dart';
 import 'package:money_manager/widgets/expense_card.dart';
 import 'package:money_manager/widgets/income_expense_card.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,9 +15,7 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 15),
         child: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => MoneyFieldScreen(),
-            ));
+            pushScreenWithoutNavBar(context, MoneyFieldScreen());
           },
           backgroundColor: Color(0xFFFEFEFE),
           child: Icon(
