@@ -63,7 +63,7 @@ class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
               ),
               SizedBox(width: 16),
               Expanded(
-                  child: TextFormField(
+                  child: TextField(
                 controller: textController,
                 onTap: () {
                   selectDate();
@@ -92,7 +92,7 @@ class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
               ),
               SizedBox(width: 16),
               Expanded(
-                  child: TextFormField(
+                  child: TextField(
                 enableInteractiveSelection: false,
                 inputFormatters: [ThousandsFormatter()],
                 decoration: InputDecoration(
@@ -130,7 +130,15 @@ class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
               )
             ],
           ),
-        )
+        ),
+        Padding(
+            padding: const EdgeInsets.only(left: 13, top: 24),
+            child: TextField(
+              maxLines: null,
+              minLines: 1,
+              decoration: InputDecoration(
+                  hintText: "Description", hintStyle: GoogleFonts.poppins()),
+            ))
       ],
     );
   }
