@@ -1,44 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager/enums/enum_category.dart';
+import 'package:money_manager/providers/expend_field_provider.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
 
-class ExpendFieldWidget extends StatefulWidget {
-  const ExpendFieldWidget({super.key});
+class ExpendFieldWidget extends ConsumerWidget {
+  ExpendFieldWidget({super.key});
 
-  @override
-  State<ExpendFieldWidget> createState() => _ExpendFieldWidgetState();
-}
-
-class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
-  Category? _selectedCategory;
   final textController = TextEditingController();
 
   @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    Future selectDate() async {
+      DateTime? dateTime = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2000),
+          lastDate: DateTime(2030));
 
-  Future selectDate() async {
-    DateTime? dateTime = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2030));
-
-    DateFormat dateFormat = DateFormat("yyyy-MM-dd");
-
-    if (dateTime != null) {
-      setState(() {
-        textController.text = dateFormat.format(dateTime);
-      });
+      if (dateTime != null) {
+        DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+        ref.read(expendFieldProvider.notifier).setDate(
+            dateFormat.format(dateTime)); // Update the date in the provider
+      }
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     List<DropdownMenuEntry<Category>> dropdownMenuEntries =
         Category.values.map((Category category) {
       return DropdownMenuEntry<Category>(
@@ -93,6 +81,11 @@ class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
               SizedBox(width: 16),
               Expanded(
                   child: TextField(
+                onChanged: (value) {
+                  ref
+                      .read(expendFieldProvider.notifier)
+                      .setMoney(value.replaceAll(RegExp(r'[^0-9]'), ''));
+                },
                 enableInteractiveSelection: false,
                 inputFormatters: [ThousandsFormatter()],
                 decoration: InputDecoration(
@@ -118,14 +111,11 @@ class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
               const SizedBox(width: 10),
               DropdownMenu(
                 width: 200,
-                initialSelection: _selectedCategory,
                 inputDecorationTheme: InputDecorationTheme(
                     filled: true, border: OutlineInputBorder()),
                 dropdownMenuEntries: dropdownMenuEntries,
                 onSelected: (value) {
-                  setState(() {
-                    _selectedCategory = value;
-                  });
+                  ref.read(expendFieldProvider.notifier).setCategory(value);
                 },
               )
             ],
