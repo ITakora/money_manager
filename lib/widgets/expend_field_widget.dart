@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:money_manager/enums/enum_category.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
 
 class ExpendFieldWidget extends StatefulWidget {
@@ -11,6 +12,7 @@ class ExpendFieldWidget extends StatefulWidget {
 }
 
 class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
+  Category? _selectedCategory;
   final textController = TextEditingController();
 
   @override
@@ -37,6 +39,16 @@ class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    List<DropdownMenuEntry<Category>> dropdownMenuEntries =
+        Category.values.map((Category category) {
+      return DropdownMenuEntry<Category>(
+        value: category,
+        label: getCategoryDisplayName(category),
+        // You can also add leadingIcon or trailingIcon here if needed
+        // leadingIcon: Icon(Icons.fastfood_outlined),
+      );
+    }).toList();
+
     return Column(
       children: [
         Padding(
@@ -59,8 +71,9 @@ class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
                 readOnly: true,
                 enableInteractiveSelection: false,
                 inputFormatters: [ThousandsFormatter()],
-                decoration:
-                    InputDecoration(contentPadding: EdgeInsets.only(left: 4)),
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 3, top: 10),
+                    prefixIcon: Icon(Icons.calendar_today)),
                 style: TextStyle(fontSize: 18),
               ))
             ],
@@ -92,8 +105,9 @@ class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
         ),
         SizedBox(height: 10),
         Padding(
-          padding: const EdgeInsets.only(left: 13, top: 10),
+          padding: const EdgeInsets.only(left: 13, top: 10, right: 13),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Category",
@@ -101,6 +115,19 @@ class _ExpendFieldWidgetState extends State<ExpendFieldWidget> {
                   fontSize: 15,
                 ),
               ),
+              const SizedBox(width: 10),
+              DropdownMenu(
+                width: 200,
+                initialSelection: _selectedCategory,
+                inputDecorationTheme: InputDecorationTheme(
+                    filled: true, border: OutlineInputBorder()),
+                dropdownMenuEntries: dropdownMenuEntries,
+                onSelected: (value) {
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
+              )
             ],
           ),
         )
