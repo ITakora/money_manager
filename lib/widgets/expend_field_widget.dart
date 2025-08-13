@@ -10,6 +10,9 @@ class ExpendFieldWidget extends ConsumerWidget {
   ExpendFieldWidget({super.key});
 
   final textController = TextEditingController();
+  final formKey = GlobalKey<FormState>(); // renamed for clarity
+
+  GlobalKey<FormState> getFormKey() => formKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,114 +25,138 @@ class ExpendFieldWidget extends ConsumerWidget {
 
       if (dateTime != null) {
         DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+        textController.text =
+            dateFormat.format(dateTime); // Update the text field
         ref.read(expendFieldProvider.notifier).setDate(
             dateFormat.format(dateTime)); // Update the date in the provider
       }
     }
 
-    List<DropdownMenuEntry<Category>> dropdownMenuEntries =
+    List<DropdownMenuItem<Category>> dropdownMenuEntries =
         Category.values.map((Category category) {
-      return DropdownMenuEntry<Category>(
+      return DropdownMenuItem<Category>(
         value: category,
-        label: getCategoryDisplayName(category),
+        child: Text(
+          category.name,
+          style: GoogleFonts.poppins(fontSize: 15),
+        ),
+
         // You can also add leadingIcon or trailingIcon here if needed
         // leadingIcon: Icon(Icons.fastfood_outlined),
       );
     }).toList();
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 13, top: 15),
-          child: Row(
-            children: [
-              Text(
-                "Date",
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 13, top: 10, right: 13),
+            child: Row(
+              children: [
+                Text(
+                  "Date",
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                  ),
                 ),
-              ),
-              SizedBox(width: 16),
-              Expanded(
-                  child: TextField(
-                controller: textController,
-                onTap: () {
-                  selectDate();
-                },
-                readOnly: true,
-                enableInteractiveSelection: false,
-                inputFormatters: [ThousandsFormatter()],
+                SizedBox(width: 16),
+                Expanded(
+                    child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a date';
+                    }
+                  },
+                  controller: textController,
+                  onTap: () {
+                    selectDate();
+                  },
+                  readOnly: true,
+                  enableInteractiveSelection: false,
+                  inputFormatters: [ThousandsFormatter()],
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 3, top: 10),
+                      prefixIcon: Icon(Icons.calendar_today)),
+                  style: TextStyle(fontSize: 18),
+                ))
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 13),
+            child: Row(
+              children: [
+                Text(
+                  "Total",
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                    child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter an amount';
+                    }
+                  },
+                  onChanged: (value) {
+                    ref
+                        .read(expendFieldProvider.notifier)
+                        .setMoney(value.replaceAll(RegExp(r'[^0-9]'), ''));
+                  },
+                  enableInteractiveSelection: false,
+                  inputFormatters: [ThousandsFormatter()],
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 4),
+                      prefixText: "Rp"),
+                  style: TextStyle(fontSize: 18),
+                  keyboardType: TextInputType.number,
+                ))
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(left: 13, top: 10, right: 13),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Category",
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: DropdownButtonFormField(
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please select a category';
+                      }
+                    },
+                    items: dropdownMenuEntries,
+                    onChanged: (value) {
+                      ref.read(expendFieldProvider.notifier).setCategory(value);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+              padding: const EdgeInsets.only(left: 13, top: 24),
+              child: TextField(
+                maxLines: null,
+                minLines: 1,
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 3, top: 10),
-                    prefixIcon: Icon(Icons.calendar_today)),
-                style: TextStyle(fontSize: 18),
+                    hintText: "Description", hintStyle: GoogleFonts.poppins()),
               ))
-            ],
-          ),
-        ),
-        SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 13),
-          child: Row(
-            children: [
-              Text(
-                "Total",
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                ),
-              ),
-              SizedBox(width: 16),
-              Expanded(
-                  child: TextField(
-                onChanged: (value) {
-                  ref
-                      .read(expendFieldProvider.notifier)
-                      .setMoney(value.replaceAll(RegExp(r'[^0-9]'), ''));
-                },
-                enableInteractiveSelection: false,
-                inputFormatters: [ThousandsFormatter()],
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 4), prefixText: "Rp"),
-                style: TextStyle(fontSize: 18),
-                keyboardType: TextInputType.number,
-              ))
-            ],
-          ),
-        ),
-        SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.only(left: 13, top: 10, right: 13),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Category",
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                ),
-              ),
-              const SizedBox(width: 10),
-              DropdownMenu(
-                width: 200,
-                inputDecorationTheme: InputDecorationTheme(
-                    filled: true, border: OutlineInputBorder()),
-                dropdownMenuEntries: dropdownMenuEntries,
-                onSelected: (value) {
-                  ref.read(expendFieldProvider.notifier).setCategory(value);
-                },
-              )
-            ],
-          ),
-        ),
-        Padding(
-            padding: const EdgeInsets.only(left: 13, top: 24),
-            child: TextField(
-              maxLines: null,
-              minLines: 1,
-              decoration: InputDecoration(
-                  hintText: "Description", hintStyle: GoogleFonts.poppins()),
-            ))
-      ],
+        ],
+      ),
     );
   }
 }
