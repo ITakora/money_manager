@@ -1,36 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:money_manager/enums/enum_category.dart';
+import 'package:money_manager/models/money_model.dart';
 
-class ExpendFieldState {
-  final String date;
-  final String money;
-  final Category? category;
-  final String description;
-
-  ExpendFieldState({
-    this.date = '',
-    this.money = '',
-    this.category,
-    this.description = '',
-  });
-
-  ExpendFieldState copyWith({
-    String? date,
-    String? money,
-    Category? category,
-    String? description,
-  }) {
-    return ExpendFieldState(
-      date: date ?? this.date,
-      money: money ?? this.money,
-      category: category ?? this.category,
-      description: description ?? this.description,
-    );
-  }
-}
-
-class ExpendFieldNotifier extends StateNotifier<ExpendFieldState> {
-  ExpendFieldNotifier() : super(ExpendFieldState());
+class ExpendFieldNotifier extends StateNotifier<Money> {
+  ExpendFieldNotifier() : super(Money());
 
   void setDate(String date) {
     state = state.copyWith(date: date);
@@ -49,7 +22,6 @@ class ExpendFieldNotifier extends StateNotifier<ExpendFieldState> {
   }
 }
 
-final expendFieldProvider =
-    StateNotifierProvider<ExpendFieldNotifier, ExpendFieldState>(
+final expendFieldProvider = StateNotifierProvider<ExpendFieldNotifier, Money>(
   (ref) => ExpendFieldNotifier(),
 );

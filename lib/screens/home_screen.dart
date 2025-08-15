@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manager/providers/expend_field_provider.dart';
+import 'package:money_manager/models/money_model.dart';
 import 'package:money_manager/screens/money_field_screen.dart';
 import 'package:money_manager/widgets/expense_card.dart';
 import 'package:money_manager/widgets/income_expense_card.dart';
@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  ExpendFieldState? _expenseData;
+  Money? _expenseData;
 
   String formatCurrency(int amount) {
     final formatter = NumberFormat.currency(
