@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager/models/money_model.dart';
+import 'package:money_manager/providers/db_income_provider.dart';
 import 'package:money_manager/screens/money_field_screen.dart';
-import 'package:money_manager/widgets/expense_card.dart';
+import 'package:money_manager/widgets/balance_widget.dart';
 import 'package:money_manager/widgets/income_expense_card.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-class HomeScreen extends StatefulWidget {
+import '../providers/db_expense_provider.dart';
+import '../widgets/expense_list_card.dart';
+
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  Money? _expenseData;
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  late Future<void> _moneyExpenseData;
+  late Future<void> _moneyIncomeData;
+
+  @override
+  void initState() {
+    _moneyExpenseData =
+        ref.read(trackMoneyExpenseProvider.notifier).getTodayExpense();
+    _moneyIncomeData =
+        ref.read(trackMoneyIncomeProvider.notifier).getTodayIncome();
+    super.initState();
+  }
 
   String formatCurrency(int amount) {
     final formatter = NumberFormat.currency(
@@ -28,18 +43,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Money> _expenseData = ref.watch(trackMoneyExpenseProvider);
+    final List<Money> _incomeData = ref.watch(trackMoneyIncomeProvider);
+
     return Scaffold(
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 15),
         child: FloatingActionButton(
           onPressed: () async {
-            final result =
-                await pushScreenWithoutNavBar(context, MoneyFieldScreen());
-            if (result != null) {
-              setState(() {
-                _expenseData = result;
-              });
-            }
+            await pushScreenWithoutNavBar(context, MoneyFieldScreen());
           },
           backgroundColor: Color(0xFFFEFEFE),
           child: Icon(
@@ -52,25 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 80, bottom: 20),
-            child: Center(
-                child: Column(
-              children: [
-                Text(
-                  _expenseData?.money != null
-                      ? formatCurrency(int.parse(_expenseData!.money))
-                      : "Rp 0",
-                  style: GoogleFonts.poppins(
-                      fontSize: 28, fontWeight: FontWeight.w600),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text("Total Balance")
-              ],
-            )),
-          ),
+          BalanceWidget(),
           IncomeExpenseCard(),
           Padding(
             padding: const EdgeInsets.only(left: 13, top: 30),
@@ -87,7 +81,19 @@ class _HomeScreenState extends State<HomeScreen> {
               style: GoogleFonts.poppins(),
             ),
           ),
-          ExpenseCard()
+          FutureBuilder(
+            future: _moneyExpenseData,
+            builder: (context, snapshot) =>
+                snapshot.connectionState == ConnectionState.waiting
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Expanded(
+                        child: ExpenseCard(
+                          data: _expenseData,
+                        ),
+                      ),
+          )
         ],
       ),
     );

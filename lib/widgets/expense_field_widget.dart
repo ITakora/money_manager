@@ -6,16 +6,14 @@ import 'package:money_manager/enums/enum_category.dart';
 import 'package:money_manager/providers/expend_field_provider.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
 
-class ExpendFieldWidget extends ConsumerWidget {
-  ExpendFieldWidget({super.key});
+class ExpenseFieldWidget extends ConsumerWidget {
+  final GlobalKey<FormState> formKey;
 
-  final textController = TextEditingController();
-  final formKey = GlobalKey<FormState>(); // renamed for clarity
-
-  GlobalKey<FormState> getFormKey() => formKey;
+  const ExpenseFieldWidget({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    TextEditingController textController = TextEditingController();
     Future selectDate() async {
       DateTime? dateTime = await showDatePicker(
           context: context,
@@ -37,12 +35,9 @@ class ExpendFieldWidget extends ConsumerWidget {
       return DropdownMenuItem<Category>(
         value: category,
         child: Text(
-          category.name,
+          "${category.unicodeIcon} ${category.name}",
           style: GoogleFonts.poppins(fontSize: 15),
         ),
-
-        // You can also add leadingIcon or trailingIcon here if needed
-        // leadingIcon: Icon(Icons.fastfood_outlined),
       );
     }).toList();
 
@@ -67,6 +62,7 @@ class ExpendFieldWidget extends ConsumerWidget {
                     if (value == null || value.isEmpty) {
                       return 'Please select a date';
                     }
+                    return null;
                   },
                   controller: textController,
                   onTap: () {
@@ -101,6 +97,7 @@ class ExpendFieldWidget extends ConsumerWidget {
                     if (value == null || value.isEmpty) {
                       return 'Please enter an amount';
                     }
+                    return null;
                   },
                   onChanged: (value) {
                     ref
@@ -137,6 +134,7 @@ class ExpendFieldWidget extends ConsumerWidget {
                       if (value == null) {
                         return 'Please select a category';
                       }
+                      return null;
                     },
                     items: dropdownMenuEntries,
                     onChanged: (value) {

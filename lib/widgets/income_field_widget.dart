@@ -7,12 +7,11 @@ import 'package:money_manager/providers/income_field_provider.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
 
 class IncomeFieldWidget extends ConsumerWidget {
-  IncomeFieldWidget({super.key});
+  final GlobalKey<FormState> formKey;
+
+  IncomeFieldWidget({super.key, required this.formKey});
 
   final _textController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-
-  GlobalKey<FormState> getFormKey() => formKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,7 +36,7 @@ class IncomeFieldWidget extends ConsumerWidget {
       return DropdownMenuItem<Category>(
         value: category,
         child: Text(
-          category.name,
+          "${category.unicodeIcon} ${category.name}",
           style: GoogleFonts.poppins(fontSize: 15),
         ),
 

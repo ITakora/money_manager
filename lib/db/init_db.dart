@@ -27,4 +27,16 @@ Future _createDB(Database db) async {
     )
   ''',
   );
+
+  await db.execute(
+    '''
+    CREATE TABLE income (
+      id TEXT PRIMARY KEY,
+      category TEXT,
+      date TEXT,
+      description TEXT,
+      money TEXT
+    )
+  ''',
+  );
 }

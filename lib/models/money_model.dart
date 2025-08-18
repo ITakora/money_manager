@@ -10,6 +10,28 @@ class Money {
   String description;
   String money;
 
+  factory Money.fromMap(Map<String, dynamic> map) {
+    return Money(
+      id: map['id'] as String,
+      category: map['category'] != null
+          ? Category.values.firstWhere((e) => e.name == map['category'])
+          : null,
+      date: map['date'] as String,
+      description: map['description'] as String,
+      money: map['money'] as String,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'category': category?.name,
+      'date': date,
+      'description': description,
+      'money': money,
+    };
+  }
+
   Money({
     this.date = '',
     this.money = '',

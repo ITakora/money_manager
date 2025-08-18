@@ -1,14 +1,19 @@
-enum Category { food, transport, hobbies, movies }
+enum Category {
+  Food,
+  Transport,
+  Hobbies,
+  Movies;
 
-String getCategoryDisplayName(Category category) {
-  switch (category) {
-    case Category.food:
-      return 'Food';
-    case Category.transport:
-      return 'Transport';
-    case Category.hobbies:
-      return 'Hobbies';
-    case Category.movies:
-      return 'Movies';
+  String get unicodeIcon {
+    switch (this) {
+      case Category.Food:
+        return '🍚';
+      case Category.Transport:
+        return '🚗';
+      case Category.Hobbies:
+        return '🎨';
+      case Category.Movies:
+        return '🎥';
+    }
   }
 }
