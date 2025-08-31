@@ -26,7 +26,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     _moneyExpenseData =
-        ref.read(trackMoneyExpenseProvider.notifier).getTodayExpense();
+        ref.read(trackMoneyExpenseProvider.notifier).loadDbExpense();
     _moneyIncomeData =
         ref.read(trackMoneyIncomeProvider.notifier).getTodayIncome();
     super.initState();
@@ -90,7 +90,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       )
                     : Expanded(
                         child: ExpenseCard(
-                          data: _expenseData,
+                          expenseData: _expenseData,
+                          incomeData: _incomeData,
                         ),
                       ),
           )

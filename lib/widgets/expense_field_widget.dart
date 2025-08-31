@@ -30,9 +30,9 @@ class ExpenseFieldWidget extends ConsumerWidget {
       }
     }
 
-    List<DropdownMenuItem<Category>> dropdownMenuEntries =
-        Category.values.map((Category category) {
-      return DropdownMenuItem<Category>(
+    List<DropdownMenuItem<ExpenseType>> dropdownMenuEntries =
+        ExpenseType.values.map((ExpenseType category) {
+      return DropdownMenuItem<ExpenseType>(
         value: category,
         child: Text(
           "${category.unicodeIcon} ${category.name}",

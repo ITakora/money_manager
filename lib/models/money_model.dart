@@ -5,7 +5,7 @@ const uuid = Uuid();
 
 class Money {
   String id;
-  Category? category;
+  ExpenseType? category;
   String date;
   String description;
   String money;
@@ -14,7 +14,7 @@ class Money {
     return Money(
       id: map['id'] as String,
       category: map['category'] != null
-          ? Category.values.firstWhere((e) => e.name == map['category'])
+          ? ExpenseType.values.firstWhere((e) => e.name == map['category'])
           : null,
       date: map['date'] as String,
       description: map['description'] as String,
@@ -43,7 +43,7 @@ class Money {
   Money copyWith({
     String? date,
     String? money,
-    Category? category,
+    ExpenseType? category,
     String? description,
   }) {
     return Money(

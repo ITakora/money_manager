@@ -1,4 +1,4 @@
-enum Category {
+enum ExpenseType {
   Food,
   Transport,
   Hobbies,
@@ -6,13 +6,13 @@ enum Category {
 
   String get unicodeIcon {
     switch (this) {
-      case Category.Food:
+      case ExpenseType.Food:
         return '🍚';
-      case Category.Transport:
+      case ExpenseType.Transport:
         return '🚗';
-      case Category.Hobbies:
+      case ExpenseType.Hobbies:
         return '🎨';
-      case Category.Movies:
+      case ExpenseType.Movies:
         return '🎥';
     }
   }

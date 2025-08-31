@@ -13,7 +13,7 @@ class IncomeFieldNotifier extends StateNotifier<Money> {
     state = state.copyWith(money: money);
   }
 
-  void setCategory(Category? category) {
+  void setCategory(ExpenseType? category) {
     state = state.copyWith(category: category);
   }
 
