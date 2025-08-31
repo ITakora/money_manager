@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manager/enums/enum_category.dart';
+import 'package:money_manager/enums/expense_enum.dart';
+import 'package:money_manager/enums/income_enum.dart';
 import 'package:money_manager/providers/income_field_provider.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
 
@@ -31,17 +32,17 @@ class IncomeFieldWidget extends ConsumerWidget {
       }
     }
 
-    List<DropdownMenuItem<ExpenseType>> dropdownMenuEntries =
-        ExpenseType.values.map((ExpenseType category) {
-      return DropdownMenuItem<ExpenseType>(
+    List<DropdownMenuItem<IncomeTypes>> dropdownMenuEntries =
+    IncomeTypes.values.map((IncomeTypes category) {
+      String displayName = category.name.replaceAll('_', ' ');
+
+
+      return DropdownMenuItem<IncomeTypes>(
         value: category,
         child: Text(
-          "${category.unicodeIcon} ${category.name}",
+          "${category.unicodeIcon} $displayName",
           style: GoogleFonts.poppins(fontSize: 15),
         ),
-
-        // You can also add leadingIcon or trailingIcon here if needed
-        // leadingIcon: Icon(Icons.fastfood_outlined),
       );
     }).toList();
 

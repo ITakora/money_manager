@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:money_manager/enums/enum_category.dart';
-import 'package:money_manager/models/money_model.dart';
+import 'package:money_manager/enums/expense_enum.dart';
+import 'package:money_manager/models/expense_model.dart';
 
-class ExpendFieldNotifier extends StateNotifier<Money> {
-  ExpendFieldNotifier() : super(Money());
+class ExpendFieldNotifier extends StateNotifier<ExpenseModel> {
+  ExpendFieldNotifier() : super(ExpenseModel());
 
   void setDate(String date) {
     state = state.copyWith(date: date);
@@ -13,7 +13,7 @@ class ExpendFieldNotifier extends StateNotifier<Money> {
     state = state.copyWith(money: money);
   }
 
-  void setCategory(ExpenseType? category) {
+  void setCategory(ExpenseTypes? category) {
     state = state.copyWith(category: category);
   }
 
@@ -22,6 +22,6 @@ class ExpendFieldNotifier extends StateNotifier<Money> {
   }
 }
 
-final expendFieldProvider = StateNotifierProvider<ExpendFieldNotifier, Money>(
+final expendFieldProvider = StateNotifierProvider<ExpendFieldNotifier, ExpenseModel>(
   (ref) => ExpendFieldNotifier(),
 );

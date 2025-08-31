@@ -1,9 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:money_manager/enums/enum_category.dart';
-import 'package:money_manager/models/money_model.dart';
+import 'package:money_manager/enums/expense_enum.dart';
+import 'package:money_manager/enums/income_enum.dart';
+import 'package:money_manager/models/expense_model.dart';
+import 'package:money_manager/models/income_model.dart';
 
-class IncomeFieldNotifier extends StateNotifier<Money> {
-  IncomeFieldNotifier() : super(Money());
+class IncomeFieldNotifier extends StateNotifier<IncomeModel> {
+  IncomeFieldNotifier() : super(IncomeModel());
 
   void setDate(String date) {
     state = state.copyWith(date: date);
@@ -13,7 +15,7 @@ class IncomeFieldNotifier extends StateNotifier<Money> {
     state = state.copyWith(money: money);
   }
 
-  void setCategory(ExpenseType? category) {
+  void setCategory(IncomeTypes? category) {
     state = state.copyWith(category: category);
   }
 
@@ -22,6 +24,6 @@ class IncomeFieldNotifier extends StateNotifier<Money> {
   }
 }
 
-final incomeFieldProvider = StateNotifierProvider<IncomeFieldNotifier, Money>(
+final incomeFieldProvider = StateNotifierProvider<IncomeFieldNotifier, IncomeModel>(
   (ref) => IncomeFieldNotifier(),
 );

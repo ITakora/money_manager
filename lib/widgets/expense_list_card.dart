@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:money_manager/models/money_model.dart';
+import 'package:money_manager/models/expense_model.dart';
+import 'package:money_manager/models/income_model.dart';
 
 class ExpenseCard extends StatelessWidget {
   const ExpenseCard(
       {super.key, required this.expenseData, required this.incomeData});
 
-  final List<Money> expenseData;
-  final List<Money> incomeData;
+  final List<ExpenseModel> expenseData;
+  final List<IncomeModel> incomeData;
 
   @override
   Widget build(BuildContext context) {

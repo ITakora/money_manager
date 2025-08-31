@@ -1,20 +1,20 @@
-import 'package:money_manager/enums/enum_category.dart';
+import 'package:money_manager/enums/expense_enum.dart';
 import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
 
-class Money {
+class ExpenseModel {
   String id;
-  ExpenseType? category;
+  ExpenseTypes? category;
   String date;
   String description;
   String money;
 
-  factory Money.fromMap(Map<String, dynamic> map) {
-    return Money(
+  factory ExpenseModel.fromMap(Map<String, dynamic> map) {
+    return ExpenseModel(
       id: map['id'] as String,
       category: map['category'] != null
-          ? ExpenseType.values.firstWhere((e) => e.name == map['category'])
+          ? ExpenseTypes.values.firstWhere((e) => e.name == map['category'])
           : null,
       date: map['date'] as String,
       description: map['description'] as String,
@@ -32,7 +32,7 @@ class Money {
     };
   }
 
-  Money({
+  ExpenseModel({
     this.date = '',
     this.money = '',
     this.category,
@@ -40,13 +40,13 @@ class Money {
     String? id,
   }) : id = id ?? uuid.v4();
 
-  Money copyWith({
+  ExpenseModel copyWith({
     String? date,
     String? money,
-    ExpenseType? category,
+    ExpenseTypes? category,
     String? description,
   }) {
-    return Money(
+    return ExpenseModel(
       date: date ?? this.date,
       money: money ?? this.money,
       category: category ?? this.category,

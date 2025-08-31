@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manager/models/money_model.dart';
+import 'package:money_manager/models/expense_model.dart';
+import 'package:money_manager/models/income_model.dart';
 import 'package:money_manager/providers/db_income_provider.dart';
 import 'package:money_manager/screens/money_field_screen.dart';
 import 'package:money_manager/widgets/balance_widget.dart';
@@ -43,8 +44,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Money> _expenseData = ref.watch(trackMoneyExpenseProvider);
-    final List<Money> _incomeData = ref.watch(trackMoneyIncomeProvider);
+    final List<ExpenseModel> _expenseData = ref.watch(trackMoneyExpenseProvider);
+    final List<IncomeModel> _incomeData = ref.watch(trackMoneyIncomeProvider);
 
     return Scaffold(
       floatingActionButton: Padding(

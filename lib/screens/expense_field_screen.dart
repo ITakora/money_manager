@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:money_manager/providers/db_expense_provider.dart';
-import 'package:money_manager/providers/expend_field_provider.dart';
+import 'package:money_manager/providers/expense_field_provider.dart';
 import 'package:money_manager/widgets/expense_field_widget.dart';
 
 class ExpenseFieldScreen extends ConsumerStatefulWidget {
