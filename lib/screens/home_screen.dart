@@ -65,8 +65,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BalanceWidget(),
-          IncomeExpenseCard(),
+          BalanceWidget(expenseData: _expenseData, incomeData: _incomeData,),
+          IncomeExpenseCard(expenseData: _expenseData, incomeData: _incomeData,),
 
          Center(
            child: Padding(

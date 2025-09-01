@@ -70,7 +70,6 @@ class ExpenseFieldWidget extends ConsumerWidget {
                   },
                   readOnly: true,
                   enableInteractiveSelection: false,
-                  inputFormatters: [ThousandsFormatter()],
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 3, top: 10),
                       prefixIcon: Icon(Icons.calendar_today)),
