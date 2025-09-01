@@ -11,7 +11,7 @@ import 'package:money_manager/widgets/income_expense_card.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import '../providers/db_expense_provider.dart';
-import '../widgets/expense_list_card.dart';
+import '../widgets/today_list_widget.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -27,7 +27,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     _moneyExpenseData =
-        ref.read(trackMoneyExpenseProvider.notifier).loadDbExpense();
+        ref.read(trackMoneyExpenseProvider.notifier).getTodayExpense();
     _moneyIncomeData =
         ref.read(trackMoneyIncomeProvider.notifier).getTodayIncome();
     super.initState();
@@ -67,21 +67,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         children: [
           BalanceWidget(),
           IncomeExpenseCard(),
-          Padding(
-            padding: const EdgeInsets.only(left: 13, top: 30),
-            child: Text(
-              "History Akhir - Akhir Ini ",
-              style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 13, top: 20),
-            child: Text(
-              "Hari ini",
-              style: GoogleFonts.poppins(),
-            ),
-          ),
+
+         Center(
+           child: Padding(
+             padding: const EdgeInsets.only(top: 30),
+             child: Text(
+                  "Hari ini",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+           ),
+         ),
+
           FutureBuilder(
             future: _moneyExpenseData,
             builder: (context, snapshot) =>
@@ -90,7 +87,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         child: CircularProgressIndicator(),
                       )
                     : Expanded(
-                        child: ExpenseCard(
+                        child: TodayListWidget(
                           expenseData: _expenseData,
                           incomeData: _incomeData,
                         ),
