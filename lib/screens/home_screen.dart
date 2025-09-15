@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager/models/expense_model.dart';
 import 'package:money_manager/models/income_model.dart';
+import 'package:money_manager/providers/combined_provider_home.dart';
 import 'package:money_manager/providers/db_income_provider.dart';
 import 'package:money_manager/screens/money_field_screen.dart';
 import 'package:money_manager/widgets/balance_widget.dart';
@@ -21,18 +22,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  late Future<void> _moneyExpenseData;
-  late Future<void> _moneyIncomeData;
-
-  @override
-  void initState() {
-    _moneyExpenseData =
-        ref.read(trackMoneyExpenseProvider.notifier).getTodayExpense();
-    _moneyIncomeData =
-        ref.read(trackMoneyIncomeProvider.notifier).getTodayIncome();
-    super.initState();
-  }
-
   String formatCurrency(int amount) {
     final formatter = NumberFormat.currency(
       locale: 'id_ID', // Indonesian locale
@@ -44,8 +33,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<ExpenseModel> _expenseData = ref.watch(trackMoneyExpenseProvider);
-    final List<IncomeModel> _incomeData = ref.watch(trackMoneyIncomeProvider);
+    final combinedData = ref.watch(combinedMoneyProvider);
+
+    final List<ExpenseModel> expenseData = ref.watch(trackMoneyExpenseProvider);
+    final List<IncomeModel> incomeData = ref.watch(trackMoneyIncomeProvider);
 
     return Scaffold(
       floatingActionButton: Padding(
@@ -65,33 +56,43 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BalanceWidget(expenseData: _expenseData, incomeData: _incomeData,),
-          IncomeExpenseCard(expenseData: _expenseData, incomeData: _incomeData,),
-
-         Center(
-           child: Padding(
-             padding: const EdgeInsets.only(top: 30),
-             child: Text(
-                  "Hari ini",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
+          BalanceWidget(
+            expenseData: expenseData,
+            incomeData: incomeData,
+          ),
+          IncomeExpenseCard(
+            expenseData: expenseData,
+            incomeData: incomeData,
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Text(
+                "Hari ini",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                    fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+          combinedData.when(
+            data: (data) {
+              return Expanded(
+                child: TodayListWidget(
+                  expenseData: data.expenses,
+                  incomeData: data.incomes,
                 ),
-           ),
-         ),
-
-          FutureBuilder(
-            future: _moneyExpenseData,
-            builder: (context, snapshot) =>
-                snapshot.connectionState == ConnectionState.waiting
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Expanded(
-                        child: TodayListWidget(
-                          expenseData: _expenseData,
-                          incomeData: _incomeData,
-                        ),
-                      ),
+              );
+            },
+            error: (error, stackTrace) => Center(
+              child: Text(
+                error.toString(),
+                style: GoogleFonts.poppins(),
+              ),
+            ),
+            loading: () => Center(
+              child: CircularProgressIndicator(),
+            ),
           )
         ],
       ),

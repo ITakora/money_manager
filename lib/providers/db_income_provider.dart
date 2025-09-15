@@ -8,7 +8,7 @@ class TrackMoneyIncome extends StateNotifier<List<IncomeModel>> {
   TrackMoneyIncome() : super([]);
 
   // Expense related methods
-  Future<void> loadDbIncome() async {
+  Future<void> loadAllDbIncome() async {
     final db = await initDb();
     final List<Map<String, dynamic>> data = await db.query('income');
     state = data.map((item) => IncomeModel.fromMap(item)).toList();

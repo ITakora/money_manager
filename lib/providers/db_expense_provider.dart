@@ -7,7 +7,7 @@ class TrackMoneyExpense extends StateNotifier<List<ExpenseModel>> {
   TrackMoneyExpense() : super([]);
 
   // Expense related methods
-  Future<void> loadDbExpense() async {
+  Future<void> loadAllDbExpense() async {
     final db = await initDb();
     final List<Map<String, dynamic>> data = await db.query('expense');
     state = data.map((item) => ExpenseModel.fromMap(item)).toList();
