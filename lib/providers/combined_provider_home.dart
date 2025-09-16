@@ -10,13 +10,13 @@ final combinedMoneyProvider =
         (ref) async {
   // Wait until both providers finish loading their data
   await Future.wait([
-    ref.read(trackMoneyExpenseProvider.notifier).loadAllDbExpense(),
-    ref.read(trackMoneyIncomeProvider.notifier).loadAllDbIncome(),
+    ref.read(trackMoneyExpenseProvider.notifier).getTodayExpense(),
+    ref.read(trackMoneyIncomeProvider.notifier).getTodayIncome(),
   ]);
 
   // Once loaded, watch the state (lists) from the providers
-  final expenses = ref.read(trackMoneyExpenseProvider);
-  final incomes = ref.read(trackMoneyIncomeProvider);
+  final expenses = ref.watch(trackMoneyExpenseProvider);
+  final incomes = ref.watch(trackMoneyIncomeProvider);
 
   return (expenses: expenses, incomes: incomes);
 });
