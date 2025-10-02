@@ -5,7 +5,7 @@ import 'package:money_manager/providers/db_income_provider.dart';
 
 import 'db_expense_provider.dart';
 
-final combinedAllMoneyProvider = Provider<
+final allMoneyProvider = Provider<
     ({
       List<ExpenseModel> allExpenses,
       List<IncomeModel> allIncomes

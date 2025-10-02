@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager/models/expense_model.dart';
 import 'package:money_manager/models/income_model.dart';
-import 'package:money_manager/providers/combined_provider_history.dart';
-import 'package:money_manager/providers/combined_provider_home.dart';
+import 'package:money_manager/providers/all_provider_data.dart';
+import 'package:money_manager/providers/today_provider_data.dart';
 import 'package:money_manager/providers/db_income_provider.dart';
 import 'package:money_manager/screens/money_field_screen.dart';
 import 'package:money_manager/widgets/balance_widget.dart';
@@ -45,8 +45,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final getTodayData = ref.watch(combinedMoneyProvider);
-    final getAllData = ref.watch(combinedAllMoneyProvider);
+    final getTodayData = ref.watch(todayMoneyProvider);
+    final getAllData = ref.watch(allMoneyProvider);
 
     return Scaffold(
       floatingActionButton: Padding(

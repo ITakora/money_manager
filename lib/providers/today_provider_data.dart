@@ -4,7 +4,7 @@ import 'package:money_manager/models/income_model.dart';
 import 'package:money_manager/providers/db_expense_provider.dart';
 import 'package:money_manager/providers/db_income_provider.dart';
 
-final combinedMoneyProvider = Provider<({List<ExpenseModel> expenses, List<IncomeModel> incomes})>((ref) {
+final todayMoneyProvider = Provider<({List<ExpenseModel> expenses, List<IncomeModel> incomes})>((ref) {
   final allExpenses = ref.watch(trackMoneyExpenseProvider);
   final allIncomes = ref.watch(trackMoneyIncomeProvider);
 
