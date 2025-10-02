@@ -1,22 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:money_manager/models/expense_model.dart';
 import 'package:money_manager/models/income_model.dart';
+import 'package:money_manager/providers/db_expense_provider.dart';
 import 'package:money_manager/providers/db_income_provider.dart';
 
-import 'db_expense_provider.dart';
+final combinedMoneyProvider = Provider<({List<ExpenseModel> expenses, List<IncomeModel> incomes})>((ref) {
+  final allExpenses = ref.watch(trackMoneyExpenseProvider);
+  final allIncomes = ref.watch(trackMoneyIncomeProvider);
 
-final combinedMoneyProvider =
-    FutureProvider<({List<ExpenseModel> expenses, List<IncomeModel> incomes})>(
-        (ref) async {
-  // Wait until both providers finish loading their data
-  await Future.wait([
-    ref.read(trackMoneyExpenseProvider.notifier).getTodayExpense(),
-    ref.read(trackMoneyIncomeProvider.notifier).getTodayIncome(),
-  ]);
+  final today = DateTime.now();
+  final todayExpenses = allExpenses.where((e) {
+    final date = DateTime.parse(e.date);
+    return date.year == today.year && date.month == today.month && date.day == today.day;
+  }).toList();
 
-  // Once loaded, watch the state (lists) from the providers
-  final expenses = ref.watch(trackMoneyExpenseProvider);
-  final incomes = ref.watch(trackMoneyIncomeProvider);
+  final todayIncomes = allIncomes.where((i) {
+    final date = DateTime.parse(i.date);
+    return date.year == today.year && date.month == today.month && date.day == today.day;
+  }).toList();
 
-  return (expenses: expenses, incomes: incomes);
+  return (expenses: todayExpenses, incomes: todayIncomes);
 });

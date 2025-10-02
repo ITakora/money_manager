@@ -14,17 +14,7 @@ class TrackMoneyIncome extends StateNotifier<List<IncomeModel>> {
     state = data.map((item) => IncomeModel.fromMap(item)).toList();
   }
 
-  Future<void> getTodayIncome() async {
-    DateFormat dateFormat = DateFormat("yyyy-MM-dd");
-    final today = dateFormat.format(DateTime.now());
-    final db = await initDb();
-    final List<Map<String, dynamic>> data = await db.query(
-      'income',
-      where: 'date = ?',
-      whereArgs: [today],
-    );
-    state = data.map((item) => IncomeModel.fromMap(item)).toList();
-  }
+
 
   void addIncome(IncomeModel money) async {
     state = [...state, money];

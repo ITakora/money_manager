@@ -13,17 +13,7 @@ class TrackMoneyExpense extends StateNotifier<List<ExpenseModel>> {
     state = data.map((item) => ExpenseModel.fromMap(item)).toList();
   }
 
-  Future<void> getTodayExpense() async {
-    DateFormat dateFormat = DateFormat("yyyy-MM-dd");
-    final today = dateFormat.format(DateTime.now());
-    final db = await initDb();
-    final List<Map<String, dynamic>> data = await db.query(
-      'expense',
-      where: 'date = ?',
-      whereArgs: [today],
-    );
-    state = data.map((item) => ExpenseModel.fromMap(item)).toList();
-  }
+
 
   void addExpense(ExpenseModel money) async {
     state = [...state, money];
