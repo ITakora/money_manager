@@ -10,9 +10,9 @@ class ExpenseListview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: ListView.builder(
-        shrinkWrap: true,
+    return ListView.builder(
+      shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         padding: EdgeInsets.only(left: 10, right: 10, top: 3),
         itemCount: data.length,
         itemBuilder: (context, index) {
@@ -41,7 +41,7 @@ class ExpenseListview extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Text(
-                          moneyFormatted,
+                          " - $moneyFormatted",
                           style: GoogleFonts.poppins(
                               fontSize: 15, fontWeight: FontWeight.w500),
                         ),
@@ -66,7 +66,6 @@ class ExpenseListview extends StatelessWidget {
               ),
             ),
           );}
-        ),
-      );
+        );
   }
 }

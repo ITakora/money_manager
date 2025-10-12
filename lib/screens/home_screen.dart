@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manager/models/expense_model.dart';
-import 'package:money_manager/models/income_model.dart';
-import 'package:money_manager/providers/all_provider_data.dart';
 import 'package:money_manager/providers/today_provider_data.dart';
 import 'package:money_manager/providers/db_income_provider.dart';
 import 'package:money_manager/screens/money_field_screen.dart';
@@ -36,17 +33,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void initState() {
     super.initState();
     // Trigger data fetch on init
-    Future.microtask(() {
-
-      ref.read(trackMoneyExpenseProvider.notifier).loadAllDbExpense();
-      ref.read(trackMoneyIncomeProvider.notifier).loadAllDbIncome();
-    });
+    ref.read(trackMoneyExpenseProvider.notifier).loadAllDbExpense();
+    ref.read(trackMoneyIncomeProvider.notifier).loadAllDbIncome();
   }
 
   @override
   Widget build(BuildContext context) {
     final getTodayData = ref.watch(todayMoneyProvider);
-    final getAllData = ref.watch(allMoneyProvider);
+
 
     return Scaffold(
       floatingActionButton: Padding(
@@ -70,12 +64,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           Column(
             children: [
               BalanceWidget(
-                expenseData: getAllData.allExpenses,
-                incomeData: getAllData.allIncomes,
+                expenseData: getTodayData.expenses,
+                incomeData: getTodayData.incomes,
               ),
               IncomeExpenseCard(
-                expenseData: getAllData.allExpenses,
-                incomeData: getAllData.allIncomes,
+                expenseData: getTodayData.expenses,
+                incomeData: getTodayData.incomes,
               ),
             ],
           ),

@@ -14,31 +14,24 @@ class TodayListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return expenseData.isEmpty && incomeData.isEmpty
-        ? Center(
-            child: Text(
-              "Listnya Masih Kosong Hari ini 😕",
-              style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w500),
-            ),
-          )
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15, top: 10),
-                child: Text("Pengeluaran", style: GoogleFonts.poppins()),
-              ),
-              SizedBox(height: 10),
-              ExpenseListview(data: expenseData),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, top: 6),
-                child: Text("Pendapatan", style: GoogleFonts.poppins()),
-              ),
-              SizedBox(height: 10),
-              IncomeListview(data: incomeData),
-            ],
-          );
+    if (expenseData.isEmpty && incomeData.isEmpty) {
+      return Center(
+        child: Text(
+          "Listnya Masih Kosong Hari ini 😕",
+          style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+      );
+    }
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(height: 10),
+          ExpenseListview(data: expenseData),
+          SizedBox(height: 10),
+          IncomeListview(data: incomeData),
+          SizedBox(height: 80),
+        ],
+      ),
+    );
   }
 }

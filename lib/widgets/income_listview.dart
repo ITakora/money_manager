@@ -11,10 +11,10 @@ class IncomeListview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+    return  ListView.builder(
         shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
         itemCount: data.length,
         itemBuilder: (context, index) {
 
@@ -43,7 +43,7 @@ class IncomeListview extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 15),
                           child: Text(
-                            moneyFormatted,
+                            " + $moneyFormatted",
                             style: GoogleFonts.poppins(
                                 fontSize: 15, fontWeight: FontWeight.w500),
                           ),
@@ -69,7 +69,6 @@ class IncomeListview extends StatelessWidget {
                 ),
               ),
             );}
-      ),
-    );
+      );
   }
 }
