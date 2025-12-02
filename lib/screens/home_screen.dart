@@ -32,7 +32,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Trigger data fetch on init
     ref.read(trackMoneyExpenseProvider.notifier).loadAllDbExpense();
     ref.read(trackMoneyIncomeProvider.notifier).loadAllDbIncome();
   }
@@ -60,7 +59,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Remove .when, use data directly
+
           Column(
             children: [
               BalanceWidget(
