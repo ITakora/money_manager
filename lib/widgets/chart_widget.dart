@@ -7,8 +7,7 @@ class ChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SizedBox(
+    return SizedBox(
         height: 190,
         child: PieChart(PieChartData(sections: [
           PieChartSectionData(
@@ -28,7 +27,6 @@ class ChartWidget extends StatelessWidget {
               titleStyle: GoogleFonts.poppins(
                   fontSize: 12, fontWeight: FontWeight.w600))
         ])),
-      ),
-    );
+      );
   }
 }

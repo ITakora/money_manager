@@ -13,16 +13,13 @@ class MoneyFieldScreen extends StatelessWidget {
           appBar: AppBar(
             bottom: TabBar(tabs: [
               Tab(
-                child: Text("Expense"),
+                child: Text("Pengeluaran"),
               ),
               Tab(
-                child: Text("Income"),
+                child: Text("Pendapatan"),
               )
             ]),
             centerTitle: true,
-            title: Text(
-              "Sigma",
-            ),
             elevation: 5,
             backgroundColor: Color(0xFFFEFEFE),
           ),

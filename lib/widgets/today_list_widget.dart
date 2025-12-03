@@ -27,14 +27,18 @@ class TodayListWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 15, top: 10),
-                child: Text("Pengeluaran", style: GoogleFonts.poppins()),
+                child: expenseData.isEmpty
+                    ? Text("")
+                    : Text("Pengeluaran", style: GoogleFonts.poppins()),
               ),
               SizedBox(height: 10),
               ExpenseListview(data: expenseData),
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 15, top: 6),
-                child: Text("Pendapatan", style: GoogleFonts.poppins()),
+                child: incomeData.isEmpty
+                    ? Text("")
+                    : Text("Pendapatan", style: GoogleFonts.poppins()),
               ),
               SizedBox(height: 10),
               IncomeListview(data: incomeData),

@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manager/models/expense_model.dart';
-import 'package:money_manager/models/income_model.dart';
 import 'package:money_manager/providers/all_provider_data.dart';
-import 'package:money_manager/providers/today_provider_data.dart';
 import 'package:money_manager/providers/db_income_provider.dart';
+import 'package:money_manager/providers/today_provider_data.dart';
 import 'package:money_manager/screens/money_field_screen.dart';
 import 'package:money_manager/widgets/balance_widget.dart';
 import 'package:money_manager/widgets/income_expense_card.dart';
@@ -35,12 +33,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Trigger data fetch on init
-    Future.microtask(() {
 
-      ref.read(trackMoneyExpenseProvider.notifier).loadAllDbExpense();
-      ref.read(trackMoneyIncomeProvider.notifier).loadAllDbIncome();
-    });
+    ref.read(trackMoneyExpenseProvider.notifier).loadAllDbExpense();
+    ref.read(trackMoneyIncomeProvider.notifier).loadAllDbIncome();
   }
 
   @override
@@ -92,8 +87,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           Expanded(
             child: TodayListWidget(
-              expenseData: getTodayData.expenses,
-              incomeData: getTodayData.incomes,
+              expenseData: getAllData.allExpenses,
+              incomeData: getAllData.allIncomes,
             ),
           ),
         ],
