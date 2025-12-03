@@ -61,7 +61,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Remove .when, use data directly
           Column(
             children: [
               BalanceWidget(
@@ -87,8 +86,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           Expanded(
             child: TodayListWidget(
-              expenseData: getAllData.allExpenses,
-              incomeData: getAllData.allIncomes,
+              expenseData: getTodayData.expenses,
+              incomeData: getTodayData.incomes,
             ),
           ),
         ],
