@@ -86,8 +86,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           Expanded(
             child: TodayListWidget(
-              expenseData: getTodayData.expenses,
-              incomeData: getTodayData.incomes,
+              expenseData: getAllData.allExpenses,
+              incomeData: getAllData.allIncomes,
             ),
           ),
         ],

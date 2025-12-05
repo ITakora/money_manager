@@ -11,10 +11,13 @@ class IncomeListview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    data.sort(
+      (a, b) => b.date.compareTo(a.date),
+    );
+
     return Flexible(
       child: ListView.builder(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-          shrinkWrap: true,
+          padding: EdgeInsets.only(top: 10, left: 7, right: 7, bottom: 80),
           itemCount: data.length,
           itemBuilder: (context, index) {
             DateTime parsedDate = DateTime.parse(data[index].date);

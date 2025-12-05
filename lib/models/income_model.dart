@@ -1,14 +1,18 @@
-import 'package:money_manager/enums/expense_enum.dart';
 import 'package:money_manager/enums/income_enum.dart';
+import 'package:money_manager/models/expense_income_model.dart';
 import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
 
-class IncomeModel {
+class IncomeModel implements ExpenseIncome {
+  @override
   String id;
   IncomeTypes? category;
+  @override
   String date;
+  @override
   String description;
+  @override
   String money;
 
   factory IncomeModel.fromMap(Map<String, dynamic> map) {

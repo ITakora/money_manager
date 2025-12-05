@@ -11,9 +11,12 @@ class ExpenseListview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    data.sort(
+      (a, b) => b.date.compareTo(a.date),
+    );
+
     return Flexible(
       child: ListView.builder(
-          shrinkWrap: true,
           padding: EdgeInsets.only(left: 10, right: 10, top: 3),
           itemCount: data.length,
           itemBuilder: (context, index) {
