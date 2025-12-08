@@ -1,32 +1,29 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:money_manager/enums/expense_enum.dart';
+import 'package:money_manager/models/expense_model.dart';
+
+import '../utils/chart_helper.dart';
 
 class ChartWidget extends StatelessWidget {
-  const ChartWidget({super.key});
+  const ChartWidget({super.key, required this.dataExpense});
+
+  final List<ExpenseModel> dataExpense;
 
   @override
   Widget build(BuildContext context) {
+    final Map<ExpenseTypes, double> categoryTotals =
+        calculateTotalCategory(dataExpense);
+    final List<PieChartSectionData> sections =
+        buildChartSection(categoryTotals);
+
     return SizedBox(
-        height: 190,
-        child: PieChart(PieChartData(sections: [
-          PieChartSectionData(
-              value: 30,
-              color: Colors.green,
-              title: "Food",
-              titleStyle: GoogleFonts.poppins(
-                  fontSize: 12, fontWeight: FontWeight.w600)),
-          PieChartSectionData(
-              value: 20,
-              color: Colors.cyan,
-              titleStyle: GoogleFonts.poppins(
-                  fontSize: 12, fontWeight: FontWeight.w600)),
-          PieChartSectionData(
-              value: 50,
-              color: Colors.grey,
-              titleStyle: GoogleFonts.poppins(
-                  fontSize: 12, fontWeight: FontWeight.w600))
-        ])),
-      );
+        height: 280,
+        child: PieChart(
+          PieChartData(
+            sections: sections,
+            sectionsSpace: 4,
+          ),
+        ));
   }
 }
