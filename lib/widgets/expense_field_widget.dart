@@ -23,10 +23,10 @@ class ExpenseFieldWidget extends ConsumerWidget {
 
       if (dateTime != null) {
         DateFormat dateFormat = DateFormat("yyyy-MM-dd");
-        textController.text =
-            dateFormat.format(dateTime); // Update the text field
-        ref.read(expendFieldProvider.notifier).setDate(
-            dateFormat.format(dateTime)); // Update the date in the provider
+        textController.text = dateFormat.format(dateTime);
+        ref
+            .read(expendFieldProvider.notifier)
+            .setDate(dateFormat.format(dateTime));
       }
     }
 

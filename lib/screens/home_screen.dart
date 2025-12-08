@@ -23,9 +23,9 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   String formatCurrency(int amount) {
     final formatter = NumberFormat.currency(
-      locale: 'id_ID', // Indonesian locale
-      symbol: 'Rp ', // Currency symbol
-      decimalDigits: 0, // No decimal places
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
     );
     return formatter.format(amount);
   }

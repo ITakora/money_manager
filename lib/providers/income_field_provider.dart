@@ -1,7 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:money_manager/enums/expense_enum.dart';
 import 'package:money_manager/enums/income_enum.dart';
-import 'package:money_manager/models/expense_model.dart';
 import 'package:money_manager/models/income_model.dart';
 
 class IncomeFieldNotifier extends StateNotifier<IncomeModel> {
@@ -24,6 +22,7 @@ class IncomeFieldNotifier extends StateNotifier<IncomeModel> {
   }
 }
 
-final incomeFieldProvider = StateNotifierProvider<IncomeFieldNotifier, IncomeModel>(
+final incomeFieldProvider =
+    StateNotifierProvider<IncomeFieldNotifier, IncomeModel>(
   (ref) => IncomeFieldNotifier(),
 );

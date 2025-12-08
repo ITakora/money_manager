@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manager/enums/expense_enum.dart';
 import 'package:money_manager/enums/income_enum.dart';
 import 'package:money_manager/providers/income_field_provider.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
@@ -25,17 +24,16 @@ class IncomeFieldWidget extends ConsumerWidget {
 
       if (dateTime != null) {
         DateFormat dateFormat = DateFormat("yyyy-MM-dd");
-        _textController.text =
-            dateFormat.format(dateTime); // Update the text field
-        ref.read(incomeFieldProvider.notifier).setDate(
-            dateFormat.format(dateTime)); // Update the date in the provider
+        _textController.text = dateFormat.format(dateTime);
+        ref
+            .read(incomeFieldProvider.notifier)
+            .setDate(dateFormat.format(dateTime));
       }
     }
 
     List<DropdownMenuItem<IncomeTypes>> dropdownMenuEntries =
-    IncomeTypes.values.map((IncomeTypes category) {
+        IncomeTypes.values.map((IncomeTypes category) {
       String displayName = category.name.replaceAll('_', ' ');
-
 
       return DropdownMenuItem<IncomeTypes>(
         value: category,

@@ -20,7 +20,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 40, left: 10),
+            padding: const EdgeInsets.only(top: 50, left: 10),
             child: ChartWidget(dataExpense: getAllData.allExpenses),
           ),
           SizedBox(height: 20),

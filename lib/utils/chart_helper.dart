@@ -39,8 +39,6 @@ List<PieChartSectionData> buildChartSection(
   ];
 
   categoryTotal.forEach((category, totalAmount) {
-    // Get a color, cycling through the list
-
     if (grandTotal == 0.0) return;
 
     final double percentage = (totalAmount / grandTotal) * 100;
@@ -50,16 +48,14 @@ List<PieChartSectionData> buildChartSection(
 
     section.add(
       PieChartSectionData(
-        value: percentage, // The total money spent in this category
+        value: percentage,
         color: color,
-        title:
-            "${percentage.toStringAsFixed(1)}%\n${category.name}", // Use the enum name as the title
-        radius: 90, // Size of the slice
-
+        title: "${percentage.toStringAsFixed(0)}%\n ${category.name}",
+        radius: 90,
         titleStyle: GoogleFonts.poppins(
           fontSize: 12,
           fontWeight: FontWeight.w600,
-          color: Colors.white, // Ensure title is visible
+          color: Colors.white,
         ),
       ),
     );

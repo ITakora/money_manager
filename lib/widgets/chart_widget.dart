@@ -18,12 +18,13 @@ class ChartWidget extends StatelessWidget {
         buildChartSection(categoryTotals);
 
     return SizedBox(
-        height: 280,
+        height: 250,
         child: PieChart(
           PieChartData(
             sections: sections,
             sectionsSpace: 4,
           ),
+          curve: Curves.linear,
         ));
   }
 }

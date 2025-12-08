@@ -1,20 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:money_manager/db/init_db.dart';
-import 'package:money_manager/models/expense_model.dart';
 import 'package:money_manager/models/income_model.dart';
 
 class TrackMoneyIncome extends StateNotifier<List<IncomeModel>> {
   TrackMoneyIncome() : super([]);
 
-  // Expense related methods
   Future<void> loadAllDbIncome() async {
     final db = await initDb();
     final List<Map<String, dynamic>> data = await db.query('income');
     state = data.map((item) => IncomeModel.fromMap(item)).toList();
   }
-
-
 
   void addIncome(IncomeModel money) async {
     state = [...state, money];
