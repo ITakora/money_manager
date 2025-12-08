@@ -18,8 +18,8 @@ class ExpenseFieldWidget extends ConsumerWidget {
       DateTime? dateTime = await showDatePicker(
           context: context,
           initialDate: DateTime.now(),
-          firstDate: DateTime(2000),
-          lastDate: DateTime(2030));
+          firstDate: DateTime.now(),
+          lastDate: DateTime.now());
 
       if (dateTime != null) {
         DateFormat dateFormat = DateFormat("yyyy-MM-dd");
@@ -151,6 +151,9 @@ class ExpenseFieldWidget extends ConsumerWidget {
                 minLines: 1,
                 decoration: InputDecoration(
                     hintText: "Description", hintStyle: GoogleFonts.poppins()),
+                onChanged: (value) {
+                  ref.read(expendFieldProvider.notifier).setDescription(value);
+                },
               ))
         ],
       ),
