@@ -20,6 +20,7 @@ class ExpenseListview extends ConsumerWidget {
 
     return Flexible(
       child: ListView.builder(
+          shrinkWrap: true,
           padding: EdgeInsets.only(left: 10, right: 10, top: 3),
           itemCount: data.length,
           itemBuilder: (context, index) {

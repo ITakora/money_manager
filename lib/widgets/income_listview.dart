@@ -20,6 +20,7 @@ class IncomeListview extends ConsumerWidget {
 
     return Flexible(
       child: ListView.builder(
+          shrinkWrap: true,
           padding: EdgeInsets.only(top: 10, left: 7, right: 7, bottom: 80),
           itemCount: data.length,
           itemBuilder: (context, index) {

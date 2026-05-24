@@ -4,8 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager/providers/all_provider_data.dart';
 import 'package:money_manager/providers/db_income_provider.dart';
+import 'package:money_manager/providers/notification_provider.dart';
 import 'package:money_manager/providers/today_provider_data.dart';
 import 'package:money_manager/screens/money_field_screen.dart';
+import 'package:money_manager/utils/notification_service.dart';
 import 'package:money_manager/widgets/balance_widget.dart';
 import 'package:money_manager/widgets/income_expense_card.dart';
 import 'package:money_manager/widgets/today_list_widget.dart';
@@ -38,10 +40,58 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ref.read(trackMoneyIncomeProvider.notifier).loadAllDbIncome();
   }
 
+  void _showNotificationDialog() {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text('Enable Notifications?',
+            style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+        content: Text(
+          'We will remind you at 12 PM and 8 PM to log your expenses. Do you want to enable this?',
+          style: GoogleFonts.poppins(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child:
+                Text('Reject', style: GoogleFonts.poppins(color: Colors.black)),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pop(dialogContext);
+
+              final granted = await NotificationService().requestPermissions();
+
+              if (!mounted) return;
+
+              if (granted) {
+                await ref
+                    .read(notificationEnabledProvider.notifier)
+                    .toggleNotifications();
+
+                if (!mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Notifications enabled!')),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Permission denied by system.')),
+                );
+              }
+            },
+            child:
+                Text('Accept', style: GoogleFonts.poppins(color: Colors.black)),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final getTodayData = ref.watch(todayMoneyProvider);
     final getAllData = ref.watch(allMoneyProvider);
+    final isNotificationEnabled = ref.watch(notificationEnabledProvider);
 
     return Scaffold(
       floatingActionButton: Padding(
@@ -50,14 +100,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           onPressed: () async {
             await pushScreenWithoutNavBar(context, MoneyFieldScreen());
           },
-          backgroundColor: Color(0xFFFEFEFE),
-          child: Icon(
+          backgroundColor: const Color(0xFFFEFEFE),
+          child: const Icon(
             Icons.add,
             color: Colors.black,
           ),
         ),
       ),
-      backgroundColor: Color(0xFFF9F8FA),
+      backgroundColor: const Color(0xFFF9F8FA),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -73,14 +123,42 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ],
           ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Text(
-                "Hari ini",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                    fontSize: 16, fontWeight: FontWeight.w600),
+          Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Text(
+                    "Hari ini",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                        fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                  Positioned(
+                    right: 10,
+                    child: IconButton(
+                      onPressed: () {
+                        if (isNotificationEnabled) {
+                          ref
+                              .read(notificationEnabledProvider.notifier)
+                              .toggleNotifications();
+                        } else {
+                          _showNotificationDialog();
+                        }
+                      },
+                      icon: Icon(
+                        size: 40,
+                        isNotificationEnabled
+                            ? Icons.notifications_active
+                            : Icons.notifications_off,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
