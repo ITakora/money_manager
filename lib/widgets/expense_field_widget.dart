@@ -18,7 +18,7 @@ class ExpenseFieldWidget extends ConsumerWidget {
       DateTime? dateTime = await showDatePicker(
           context: context,
           initialDate: DateTime.now(),
-          firstDate: DateTime.now(),
+          firstDate: DateTime(2000),
           lastDate: DateTime.now());
 
       if (dateTime != null) {

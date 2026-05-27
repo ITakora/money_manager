@@ -9,10 +9,15 @@ class DateFormatted {
     return DateFormat(_dateFormat).format(parsedDate);
   }
 
-  static String getTodayFormatted () {
-    DateTime now = DateTime.now();
-
-        return DateFormat(_dateFormat).format(now);
+  static String getMonthFormatted(String month) {
+    DateTime parsedDate = DateTime.parse(month);
+    String formatMonth = DateFormat('MMMM', 'id').format(parsedDate);
+    return formatMonth;
   }
 
+  static String getTodayFormatted() {
+    DateTime now = DateTime.now();
+
+    return DateFormat(_dateFormat).format(now);
+  }
 }
