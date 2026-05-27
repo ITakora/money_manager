@@ -8,10 +8,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final notificationService = NotificationService();
-  await notificationService.initNotification();
-
+  notificationService.initNotification();
+  notificationService.configureLocalTimeZone();
   final prefs = await SharedPreferences.getInstance();
-  final isEnabled = prefs.getBool('notifications_enabled') ?? true;
+  final isEnabled = prefs.getBool('notifications_enabled') ??
+      false; // default false, not true
 
   if (isEnabled) {
     await notificationService.scheduleDailyNotifications();

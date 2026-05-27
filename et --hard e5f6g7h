@@ -1,0 +1,33 @@
+[33m2bb98d6[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m adding notification servie
+[33m58a59fe[m adding delete in card and use desc and change date picker
+[33meae3306[m cleaning the code
+[33md6df27b[m chart func for helper
+[33m39de4c8[m add expense_income_model and show list in history screen
+[33mda8053f[m adding utils and make some helper func
+[33mcd1efec[m adding utils and make some helper func
+[33m2bf3db2[m test
+[33m7207e1f[m fixed scroll bug in home screen
+[33m5a8dd6c[m change name file
+[33mff9b3ef[m remove getToday and make logic to get today data
+[33m17e61a4[m cleaning the structur code, and use the data
+[33m12f4489[m change future builder to future provider
+[33ma050296[m use the data and adding some logic in income_list,expense_list,income_expense_card,balance_widget
+[33m5856469[m seperate expense and income, and make change in home screen
+[33m85462fa[m rewrite enums and models
+[33m4feefc3[m change enums name and add some data in expense_list
+[33m4297d82[m adding db provider and use it in home screen, and solve some bug in expesne_field_widget
+[33m3533da2[m make income textfield and make the riverpod for handle the data
+[33mafff96a[m adding validation in expense
+[33mcd9ffab[m adding riverpod as state management,and make the code look clean in expend_field_widget
+[33mc3b0f42[m make description field
+[33m6e8344a[m making dropdownMenu
+[33m14d18ef[m adding date picker
+[33m42248bf[m add enum for category and make enum dropdown
+[33m7e1497b[m make some work in expense field
+[33m9a722c8[m adding package that i need
+[33mac44ecc[m adding money field screen and changing bottom nav
+[33med2d019[m add chart widget and indicator widget
+[33mb38a266[m changing bottom navigation to use library and refactor main file
+[33m0317344[m adding bottom navigation
+[33md5e78bf[m create card history money
+[33m996e96a[m home screen and widgets

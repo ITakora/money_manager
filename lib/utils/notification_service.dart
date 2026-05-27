@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -25,7 +26,7 @@ class NotificationService {
 
     const DarwinInitializationSettings initializationSettingsIOS =
         DarwinInitializationSettings(
-      requestAlertPermission: false, // Set to false to handle manually
+      requestAlertPermission: false,
       requestBadgePermission: false,
       requestSoundPermission: false,
     );
@@ -36,7 +37,8 @@ class NotificationService {
       iOS: initializationSettingsIOS,
     );
 
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await flutterLocalNotificationsPlugin.initialize(
+        settings: initializationSettings);
   }
 
   Future<bool> requestPermissions() async {
@@ -61,39 +63,25 @@ class NotificationService {
     return false;
   }
 
-  Future<void> showInstantNotification() async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
-      'test_channel',
-      'Test Notifications',
-      channelDescription: 'Used for testing notifications',
-      importance: Importance.max,
-      priority: Priority.high,
-    );
-    const NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
-
-    await flutterLocalNotificationsPlugin.show(
-      99, // Unique ID for test
-      'Test Notification',
-      'If you see this, notifications are working!',
-      platformChannelSpecifics,
-    );
+  Future<void> configureLocalTimeZone() async {
+    tz.initializeTimeZones();
+    final TimezoneInfo timeZoneName = await FlutterTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
   }
 
   Future<void> scheduleDailyNotifications() async {
     await _scheduleDailyNotification(
       id: 1,
-      title: 'Time to log your morning expenses!',
-      body: 'Don\'t forget to record your spending from this morning.',
+      title: 'Catat Pengeluaranmu!',
+      body: 'Jangan lupa catat makan siangg!',
       hour: 12,
       minute: 0,
     );
 
     await _scheduleDailyNotification(
       id: 2,
-      title: 'Daily Summary Reminder',
-      body: 'Did you spend anything else today? Log it now!',
+      title: 'Catat Pengeluaranmu',
+      body: 'Jangan lupa catat makan malamm!',
       hour: 20,
       minute: 0,
     );
@@ -107,11 +95,11 @@ class NotificationService {
     required int minute,
   }) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      _nextInstanceOfTime(hour, minute),
-      const NotificationDetails(
+      id: id,
+      title: title,
+      body: body,
+      scheduledDate: _nextInstanceOfTime(hour, minute),
+      notificationDetails: const NotificationDetails(
         android: AndroidNotificationDetails(
           'daily_reminder_channel',
           'Daily Reminders',
@@ -122,8 +110,6 @@ class NotificationService {
         iOS: DarwinNotificationDetails(),
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
     );
   }

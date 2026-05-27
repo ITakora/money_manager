@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:money_manager/enums/expense_enum.dart';
 import 'package:money_manager/models/expense_model.dart';
 
@@ -22,6 +22,7 @@ class ExpendFieldNotifier extends StateNotifier<ExpenseModel> {
   }
 }
 
-final expendFieldProvider = StateNotifierProvider<ExpendFieldNotifier, ExpenseModel>(
+final expendFieldProvider =
+    StateNotifierProvider<ExpendFieldNotifier, ExpenseModel>(
   (ref) => ExpendFieldNotifier(),
 );

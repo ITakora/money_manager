@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:money_manager/enums/income_enum.dart';
 import 'package:money_manager/models/income_model.dart';
 

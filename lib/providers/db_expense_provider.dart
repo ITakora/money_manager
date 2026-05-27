@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:money_manager/db/init_db.dart';
 import 'package:money_manager/models/expense_model.dart';
 
