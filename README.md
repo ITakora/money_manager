@@ -8,7 +8,6 @@ This is my mobile application built using Flutter to track daily income and expe
 <p align="center">
   <img width="240"  alt="home" src="https://github.com/user-attachments/assets/efe4b7f9-f079-46bf-96f9-bff0b6728eda" />
   <img width="240"  alt="history" src="https://github.com/user-attachments/assets/7906ca24-f2c6-4aaf-9757-54b2827a15d4" />
-  <img width="240"  alt="field" src="https://github.com/user-attachments/assets/f228412f-8198-470f-b30b-dcb9c7c547ca" />
   <img width="240"  alt="field2" src="https://github.com/user-attachments/assets/dd166e43-6906-40d4-bf0e-a9c1e7af1d12" />
 
 
