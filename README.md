@@ -16,9 +16,9 @@ This is my mobile application built using Flutter to track daily income and expe
 ## Features ✨
 
 * **Smart Tracking:** Easily log and monitor your monthly income and expenses.
-* **Visual Analytics 📊:** interactive charts to help you visualize where your money goes.
-* **100% Offline Support 🔌:** No internet connection required! Your financial data is saved safely right on your device.
-* **Daily Reminders ⏰:** Automated push notifications every day at **12:00 PM** and **8:00 PM**.
+* **Visual Analytics :** interactive charts to help you visualize where your money goes.
+* **100% Offline Support :** No internet connection required! Your financial data is saved safely right on your device.
+* **Daily Reminders :** Notifications every day at **12:00 PM** and **8:00 PM**.
 
 
 ## Upcoming Features 🚀
