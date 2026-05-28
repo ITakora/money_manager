@@ -7,6 +7,7 @@ import 'package:money_manager/providers/db_income_provider.dart';
 import 'package:money_manager/providers/notification_provider.dart';
 import 'package:money_manager/providers/today_provider_data.dart';
 import 'package:money_manager/screens/money_field_screen.dart';
+import 'package:money_manager/utils/dataMonthlyNowFilter.dart';
 import 'package:money_manager/utils/notification_service.dart';
 import 'package:money_manager/widgets/balance_widget.dart';
 import 'package:money_manager/widgets/income_expense_card.dart';
@@ -47,14 +48,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         title: Text('Enable Notifications?',
             style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
         content: Text(
-          'We will remind you at 12 PM and 8 PM to log your expenses. Do you want to enable this?',
+          'Reminder untuk makan siang dan makan malam akan muncul setiap hari pukul 12:00 dan 20:00',
           style: GoogleFonts.poppins(),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext),
             child:
-                Text('Reject', style: GoogleFonts.poppins(color: Colors.black)),
+                Text('Tolak', style: GoogleFonts.poppins(color: Colors.black)),
           ),
           TextButton(
             onPressed: () async {
@@ -80,7 +81,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               }
             },
             child:
-                Text('Accept', style: GoogleFonts.poppins(color: Colors.black)),
+                Text('Terima', style: GoogleFonts.poppins(color: Colors.black)),
           ),
         ],
       ),
@@ -118,8 +119,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 incomeData: getAllData.allIncomes,
               ),
               IncomeExpenseCard(
-                expenseData: getAllData.allExpenses,
-                incomeData: getAllData.allIncomes,
+                expenseData: DataMonthlyNowFilter.filterCurrentMonthExpense(
+                    getAllData.allExpenses),
+                incomeData: DataMonthlyNowFilter.filterCurrentMonthIncome(
+                    getAllData.allIncomes),
               ),
             ],
           ),

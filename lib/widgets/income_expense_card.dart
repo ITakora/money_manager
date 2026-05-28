@@ -5,34 +5,31 @@ import 'package:money_manager/models/expense_model.dart';
 import 'package:money_manager/models/income_model.dart';
 
 class IncomeExpenseCard extends StatelessWidget {
-  const IncomeExpenseCard({super.key, required this.incomeData, required this.expenseData});
+  const IncomeExpenseCard(
+      {super.key, required this.incomeData, required this.expenseData});
 
   final List<IncomeModel> incomeData;
   final List<ExpenseModel> expenseData;
 
-
-
   @override
   Widget build(BuildContext context) {
+    final dateNow = DateTime.now();
+
     int amountIncomeDataMoney = 0;
     int amountExpenseDataMoney = 0;
     for (int i = 0; i < incomeData.length; i++) {
-
       int dataMoney = int.parse(incomeData[i].money);
       amountIncomeDataMoney += dataMoney;
-
     }
 
     for (int i = 0; i < expenseData.length; i++) {
-
       int dataMoney = int.parse(expenseData[i].money);
       amountExpenseDataMoney += dataMoney;
-
     }
 
-    final currencyFormat = NumberFormat.currency(locale: 'id',
-        symbol: 'Rp ', decimalDigits: 0);
-    
+    final currencyFormat =
+        NumberFormat.currency(locale: 'id', symbol: 'Rp ', decimalDigits: 0);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [

@@ -6,6 +6,7 @@ import 'package:money_manager/providers/monthly_provider.dart';
 import 'package:money_manager/utils/date_formatted.dart';
 import 'package:money_manager/widgets/chart_widget.dart';
 import 'package:money_manager/widgets/expense_incomes_history_list.dart';
+import 'package:money_manager/widgets/income_expense_card.dart';
 
 class HistoryScreen extends ConsumerStatefulWidget {
   const HistoryScreen({super.key});
@@ -33,6 +34,9 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
             child: ChartWidget(dataExpense: filterData.expenses),
           ),
           const SizedBox(height: 15),
+          IncomeExpenseCard(
+              incomeData: filterData.incomes, expenseData: filterData.expenses),
+          SizedBox(height: 10),
           DropdownButtonHideUnderline(
               child: DropdownButton2(
             valueListenable: dropdownStateNotifier,

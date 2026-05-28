@@ -18,7 +18,7 @@ class ChartWidget extends StatelessWidget {
         buildChartSection(categoryTotals);
 
     return SizedBox(
-        height: 250,
+        height: 240,
         child: PieChart(
           PieChartData(
             sections: sections,
